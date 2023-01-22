@@ -15,7 +15,7 @@ import javax.inject.Singleton
 @[Module InstallIn(SingletonComponent::class)]
 object NetworkModule {
 
-    private const val DURATION = 15L
+    private const val DURATION = 30L
 
     @[Provides Singleton]
     fun provideOkHttpClient(): OkHttpClient {
