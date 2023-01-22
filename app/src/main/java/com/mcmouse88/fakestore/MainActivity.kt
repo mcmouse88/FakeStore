@@ -1,13 +1,12 @@
 package com.mcmouse88.fakestore
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import coil.load
 import com.mcmouse88.fakestore.databinding.ActivityMainBinding
+import com.mcmouse88.fakestore.epoxy.ProductEpoxyController
+import com.mcmouse88.fakestore.models.mapper.ProductMapper
+import com.mcmouse88.fakestore.network.ProductService
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -21,54 +20,24 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var productService: ProductService
 
+    @Inject
+    lateinit var productMapper: ProductMapper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
+        val controller = ProductEpoxyController()
+        binding.rvProductList.setController(controller)
 
-        refreshData()
-        setupListeners()
+        lifecycleScope.launchWhenStarted {
+            val response = productService.getAllProduct()
+            val domainProduct = productMapper.buildFromList(response.body())
+            controller.setData(domainProduct)
+        }
     }
 
     override fun onDestroy() {
         _binding = null
         super.onDestroy()
-    }
-
-    private fun refreshData() {
-        lifecycleScope.launchWhenStarted {
-            binding.progressProductImageLoading.isVisible = true
-            val response = productService.getAllProduct()
-            binding.ivProduct.load(
-                data = "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg"
-            ) {
-                listener { _, _ ->
-                    binding.progressProductImageLoading.isGone = true
-                }
-            }
-            Log.e("TAG_RESP", "refreshData: $response")
-        }
-    }
-
-    private fun setupListeners() {
-        binding.cardView.setOnClickListener {
-            binding.tvProductDescription.apply {
-                isVisible = isVisible.not()
-            }
-        }
-
-        binding.btnAddToCard.setOnClickListener {
-            binding.btnIndicateInCard.apply {
-                isVisible = isVisible.not()
-            }
-        }
-
-        var isFavorite = false
-        binding.btnFavorite.setOnClickListener {
-            binding.btnFavorite.setIconResource(
-                if (isFavorite) R.drawable.ic_favorite
-                else R.drawable.ic_favorite_border
-            )
-            isFavorite = isFavorite.not()
-        }
     }
 }

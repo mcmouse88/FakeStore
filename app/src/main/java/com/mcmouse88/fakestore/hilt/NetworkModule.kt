@@ -1,6 +1,6 @@
 package com.mcmouse88.fakestore.hilt
 
-import com.mcmouse88.fakestore.ProductService
+import com.mcmouse88.fakestore.network.ProductService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -88,4 +88,8 @@ dependencies {
 
     // Coil
     implementation("io.coil-kt:coil:2.2.2")
+
+    // Epoxy
+    val epoxyVersion = "4.6.4"
+    implementation("com.airbnb.android:epoxy:$epoxyVersion")
 }
