@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_product_shimmer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:visibility="gone"
+    tools:visibility="visible">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/corner_radius">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_product_image_shimmer"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                android:alpha="0.25"
+                android:background="@drawable/background_rounded"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_margin="6dp"
+                android:alpha="0.35"
+                android:backgroundTint="@color/black"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                app:layout_constraintEnd_toEndOf="@id/iv_product_image_shimmer"
+                app:layout_constraintTop_toTopOf="@id/iv_product_image_shimmer" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_product_title_shimmer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                android:alpha="0.5"
+                android:background="@drawable/background_rounded"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_product_image_shimmer"
+                app:layout_constraintTop_toTopOf="@id/iv_product_image_shimmer" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:alpha="0.25"
+                android:background="@drawable/background_rounded"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@id/tv_product_title_shimmer"
+                app:layout_constraintStart_toStartOf="@id/tv_product_title_shimmer"
+                app:layout_constraintTop_toBottomOf="@id/tv_product_title_shimmer" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:alpha="0.25"
+                android:background="@drawable/background_rounded"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@id/btn_add_to_card_shimmer"
+                app:layout_constraintStart_toStartOf="@id/tv_product_title_shimmer"
+                app:layout_constraintTop_toTopOf="@id/btn_add_to_card_shimmer" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_add_to_card_shimmer"
+                android:layout_width="68dp"
+                android:layout_height="34dp"
+                android:layout_margin="8dp"
+                android:alpha="0.35"
+                android:backgroundTint="@color/black"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                app:cornerRadius="@dimen/corner_radius"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</com.facebook.shimmer.ShimmerFrameLayout>

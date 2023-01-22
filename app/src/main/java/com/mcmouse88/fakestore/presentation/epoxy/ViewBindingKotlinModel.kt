@@ -1,6 +1,6 @@
 @file:Suppress("UNCHECKED_CAST")
 
-package com.mcmouse88.fakestore.epoxy
+package com.mcmouse88.fakestore.presentation.epoxy
 
 import android.view.View
 import androidx.annotation.LayoutRes
@@ -18,17 +18,26 @@ abstract class ViewBindingKotlinModel<T : ViewBinding>(
     private val bindingMethod by lazy { getBindMethodFrom(this::class.java) }
 
     abstract fun T.bind()
+    open fun T.unbind() { /* no-op */ }
 
     override fun bind(view: View) {
-        var binding = view.getTag(R.id.epoxy_view_binding) as? T
-        if (binding == null) {
-            binding = bindingMethod.invoke(null, view) as T
-            view.setTag(R.id.epoxy_view_binding, binding)
-        }
-        binding.bind()
+        view.getBinding().bind()
+    }
+
+    override fun unbind(view: View) {
+        view.getBinding().unbind()
     }
 
     override fun getDefaultLayout(): Int = layoutRes
+
+    protected fun View.getBinding(): T {
+        var binding = getTag(R.id.epoxy_view_binding) as? T
+        if (binding == null) {
+            binding = bindingMethod.invoke(null, this) as T
+            setTag(R.id.epoxy_view_binding, binding)
+        }
+       return binding
+    }
 }
 
 private val sBindingMethodByClass = ConcurrentHashMap<Class<*>, Method>()

@@ -1,14 +1,14 @@
-package com.mcmouse88.fakestore
+package com.mcmouse88.fakestore.presentation
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import com.mcmouse88.fakestore.databinding.ActivityMainBinding
-import com.mcmouse88.fakestore.epoxy.ProductEpoxyController
-import com.mcmouse88.fakestore.models.mapper.ProductMapper
-import com.mcmouse88.fakestore.network.ProductService
+import com.mcmouse88.fakestore.presentation.epoxy.ProductEpoxyController
+import com.mcmouse88.fakestore.utils.observe
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -17,23 +17,23 @@ class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding
         get() = _binding ?: throw NullPointerException("ActivityMainBinding is null")
 
-    @Inject
-    lateinit var productService: ProductService
-
-    @Inject
-    lateinit var productMapper: ProductMapper
+    private val viewModel by viewModels<MainActivityViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
         val controller = ProductEpoxyController()
         binding.rvProductList.setController(controller)
+        controller.setData(emptyList())
 
-        lifecycleScope.launchWhenStarted {
-            val response = productService.getAllProduct()
-            val domainProduct = productMapper.buildFromList(response.body())
-            controller.setData(domainProduct)
+        viewModel.store.stateFlow
+            .map { it.products }
+            .distinctUntilChanged()
+            .observe(this) { products ->
+            controller.setData(products)
         }
+
+        viewModel.fetchProducts()
     }
 
     override fun onDestroy() {

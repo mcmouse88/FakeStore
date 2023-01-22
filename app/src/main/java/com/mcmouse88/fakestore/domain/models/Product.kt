@@ -1,4 +1,4 @@
-package com.mcmouse88.fakestore.models.domain
+package com.mcmouse88.fakestore.domain.models
 
 import java.math.BigDecimal
 

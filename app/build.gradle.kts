@@ -74,7 +74,9 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-moshi:$retrofitVersion")
 
     // Lifecycle
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
+    val lifecycleVersion = "2.5.1"
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
 
     // hilt
     val hiltVersion = "2.44.2"
@@ -92,4 +94,12 @@ dependencies {
     // Epoxy
     val epoxyVersion = "4.6.4"
     implementation("com.airbnb.android:epoxy:$epoxyVersion")
+
+    // Shimmer
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
+
+    // Activity and Fragment ktx
+    implementation("androidx.fragment:fragment-ktx:1.5.5")
+    implementation("androidx.activity:activity-ktx:1.6.1")
+
 }

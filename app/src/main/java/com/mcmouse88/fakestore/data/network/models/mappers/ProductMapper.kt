@@ -1,6 +1,6 @@
-package com.mcmouse88.fakestore.models.mapper
+package com.mcmouse88.fakestore.data.network.models.mappers
 
-import com.mcmouse88.fakestore.models.domain.Product
+import com.mcmouse88.fakestore.domain.models.Product
 import com.mcmouse88.fakestore.models.nerwork.NetworkProduct
 import java.math.BigDecimal
 import java.math.RoundingMode

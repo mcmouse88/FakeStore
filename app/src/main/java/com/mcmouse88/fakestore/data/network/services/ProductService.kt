@@ -1,4 +1,4 @@
-package com.mcmouse88.fakestore.network
+package com.mcmouse88.fakestore.data.network.services
 
 import com.mcmouse88.fakestore.models.nerwork.NetworkProduct
 import retrofit2.Response
