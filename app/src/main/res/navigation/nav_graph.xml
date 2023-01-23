@@ -10,4 +10,9 @@
         android:label="Product List"
         tools:layout="@layout/fragment_product_list" />
 
+    <fragment android:id="@+id/profileFragment"
+        android:name="com.mcmouse88.fakestore.presentation.fragments.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
+
 </navigation>

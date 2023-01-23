@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FakeStore</string>
+    <string name="product_list">Product List</string>
+    <string name="profile">Profile</string>
 </resources>
