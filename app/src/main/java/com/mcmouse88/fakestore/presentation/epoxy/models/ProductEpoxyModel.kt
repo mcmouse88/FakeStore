@@ -11,7 +11,8 @@ import com.mcmouse88.fakestore.presentation.models.ProductUI
 import java.text.NumberFormat
 
 data class ProductEpoxyModel(
-    val uiProduct: ProductUI?
+    val uiProduct: ProductUI?,
+    val onFavoriteIconClick: (Int) -> Unit
 ) : ViewBindingKotlinModel<ProductItemBinding>(R.layout.product_item) {
 
     private val currencyFormatter = NumberFormat.getCurrencyInstance()
@@ -32,6 +33,10 @@ data class ProductEpoxyModel(
                 if (uiProduct.isFavorite) R.drawable.ic_favorite
                 else R.drawable.ic_favorite_border
             )
+
+            btnFavorite.setOnClickListener {
+                onFavoriteIconClick.invoke(uiProduct.product.id)
+            }
 
             progressProductImageLoading.isVisible = true
             ivProduct.load(

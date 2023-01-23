@@ -3,6 +3,7 @@ package com.mcmouse88.fakestore.presentation
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.mcmouse88.fakestore.databinding.ActivityMainBinding
 import com.mcmouse88.fakestore.presentation.epoxy.ProductEpoxyController
 import com.mcmouse88.fakestore.presentation.models.ProductUI
@@ -11,6 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -25,7 +27,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
 
-        val controller = ProductEpoxyController()
+        val controller = ProductEpoxyController(
+            onFavoriteIconClick = ::onFavoriteClick
+        )
         binding.rvProductList.setController(controller)
 
         setupObserver(controller)
@@ -51,6 +55,20 @@ class MainActivity : AppCompatActivity() {
             }
         }.distinctUntilChanged().observe(this) { products ->
             controller.setData(products)
+        }
+    }
+
+    private fun onFavoriteClick(selectedProductId: Int) {
+        lifecycleScope.launch {
+            viewModel.store.update { currentState ->
+                val currentFavoriteIds = currentState.favoriteProductIds
+                val newFavoriteIds = if (currentFavoriteIds.contains(selectedProductId)) {
+                    currentFavoriteIds.filter { it != selectedProductId }.toSet()
+                } else {
+                    currentFavoriteIds + setOf(selectedProductId)
+                }
+                return@update currentState.copy(favoriteProductIds = newFavoriteIds)
+            }
         }
     }
 }
