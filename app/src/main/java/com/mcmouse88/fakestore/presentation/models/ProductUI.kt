@@ -4,5 +4,6 @@ import com.mcmouse88.fakestore.domain.models.Product
 
 data class ProductUI(
     val product: Product,
-    val isFavorite: Boolean = false
+    val isFavorite: Boolean = false,
+    val isExpanded: Boolean = false
 )

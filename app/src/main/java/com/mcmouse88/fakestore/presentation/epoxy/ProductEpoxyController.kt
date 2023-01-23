@@ -5,7 +5,7 @@ import com.mcmouse88.fakestore.presentation.epoxy.models.ProductEpoxyModel
 import com.mcmouse88.fakestore.presentation.models.ProductUI
 
 class ProductEpoxyController(
-    private val onFavoriteIconClick: (Int) -> Unit
+    private val listener: ProductEpoxyModel.Listener
 ) : TypedEpoxyController<List<ProductUI>>() {
 
     override fun buildModels(data: List<ProductUI>?) {
@@ -14,7 +14,7 @@ class ProductEpoxyController(
                 val epoxyId = it + 1
                 ProductEpoxyModel(
                     uiProduct = null,
-                    onFavoriteIconClick = onFavoriteIconClick
+                    listener = listener
                 ).id(epoxyId).addTo(this)
             }
             return
@@ -23,7 +23,7 @@ class ProductEpoxyController(
         data.forEach { product ->
             ProductEpoxyModel(
                 uiProduct = product,
-                onFavoriteIconClick = onFavoriteIconClick
+                listener = listener
             ).id(product.product.id).addTo(this)
         }
     }

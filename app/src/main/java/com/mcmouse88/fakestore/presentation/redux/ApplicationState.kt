@@ -4,5 +4,6 @@ import com.mcmouse88.fakestore.domain.models.Product
 
 data class ApplicationState(
     val products: List<Product> = emptyList(),
-    val favoriteProductIds: Set<Int> = emptySet()
+    val favoriteProductIds: Set<Int> = emptySet(),
+    val expandedProductIds: Set<Int> = emptySet()
 )

@@ -12,7 +12,7 @@ import java.text.NumberFormat
 
 data class ProductEpoxyModel(
     val uiProduct: ProductUI?,
-    val onFavoriteIconClick: (Int) -> Unit
+    val listener: Listener
 ) : ViewBindingKotlinModel<ProductItemBinding>(R.layout.product_item) {
 
     private val currencyFormatter = NumberFormat.getCurrencyInstance()
@@ -29,13 +29,19 @@ data class ProductEpoxyModel(
             tvProductCategory.text = uiProduct.product.category
             tvProductPrice.text = currencyFormatter.format(uiProduct.product.price)
 
+            tvProductDescription.isVisible = uiProduct.isExpanded
+
             btnFavorite.setIconResource(
                 if (uiProduct.isFavorite) R.drawable.ic_favorite
                 else R.drawable.ic_favorite_border
             )
 
             btnFavorite.setOnClickListener {
-                onFavoriteIconClick.invoke(uiProduct.product.id)
+                listener.onFavoriteIconClick(uiProduct.product.id)
+            }
+
+            root.setOnClickListener {
+                listener.onProductClick(uiProduct.product.id)
             }
 
             progressProductImageLoading.isVisible = true
@@ -47,6 +53,10 @@ data class ProductEpoxyModel(
                 }
             }
         } ?: shimmerLayout.root.startShimmer()
+    }
 
+    interface Listener {
+        fun onFavoriteIconClick(productId: Int)
+        fun onProductClick(productId: Int)
     }
 }
