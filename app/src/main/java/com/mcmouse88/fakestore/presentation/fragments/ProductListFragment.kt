@@ -39,7 +39,6 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list),
         binding.rvProductList.setController(controller)
 
         setupObserver(controller)
-        // controller.setData(emptyList()) todo
         viewModel.fetchProducts()
     }
 
@@ -97,6 +96,11 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list),
             viewModel.store.stateFlow.map { it.expandedProductIds },
             viewModel.store.stateFlow.map { it.filter }
         ) { listProducts, setFavorites, setExpanded, filterInfo ->
+
+            if (listProducts.isEmpty()) {
+                return@combine ProductListState.Loading
+            }
+
             val uiProduct = listProducts.map { product ->
                 ProductUI(
                     product = product,
@@ -117,7 +121,7 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list),
             } else {
                 uiProduct.filter { it.product.category == filterInfo.selectedFilter.value }
             }
-            return@combine ProductListState(filteredProduct, uiFilter)
+            return@combine ProductListState.Success(uiFilter, filteredProduct)
         }.distinctUntilChanged().observe(viewLifecycleOwner) { products ->
             controller.setData(products)
         }

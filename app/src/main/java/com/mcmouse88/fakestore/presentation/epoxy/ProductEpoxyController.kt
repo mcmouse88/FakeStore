@@ -12,28 +12,34 @@ class ProductEpoxyController(
 ) : TypedEpoxyController<ProductListState>() {
 
     override fun buildModels(data: ProductListState?) {
-        if (data == null) {
-            repeat(7) {
-                val epoxyId = it + 1
-                ProductEpoxyModel(
-                    uiProduct = null,
-                    listener = listener
-                ).id(epoxyId).addTo(this)
+        when (data) {
+            ProductListState.Loading -> {
+                repeat(7) {
+                    val epoxyId = it + 1
+                    ProductEpoxyModel(
+                        uiProduct = null,
+                        listener = listener
+                    ).id(epoxyId).addTo(this)
+                }
             }
-            return
-        }
+            is ProductListState.Success -> {
+                val uiFilterModels = data.filters.map {
+                    ProductFilterEpoxyModel(
+                        filterUI = it,
+                        onFilterSelected = listener::onFilterSelected
+                    )
+                        .id(it.filter.value)
+                }
+                CarouselModel_().models(uiFilterModels).id("filters").addTo(this)
 
-        val uiFilterModels = data.filters.map {
-            ProductFilterEpoxyModel(filterUI = it, onFilterSelected = listener::onFilterSelected)
-                .id(it.filter.value)
-        }
-        CarouselModel_().models(uiFilterModels).id("filters").addTo(this)
-
-        data.products.forEach { product ->
-            ProductEpoxyModel(
-                uiProduct = product,
-                listener = listener
-            ).id(product.product.id).addTo(this)
+                data.products.forEach { product ->
+                    ProductEpoxyModel(
+                        uiProduct = product,
+                        listener = listener
+                    ).id(product.product.id).addTo(this)
+                }
+            }
+            null -> throw RuntimeException("Unhandled branch! $data")
         }
     }
 
