@@ -1,5 +1,8 @@
 package com.mcmouse88.fakestore.utils
 
+import android.content.Context
+import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
@@ -15,4 +18,16 @@ fun <T> Flow<T>.observe(owner: LifecycleOwner, block: (T) -> Unit) {
             }
         }
     }
+}
+
+fun<T> T.launchWithLifecycle(owner: LifecycleOwner, block: suspend (T) -> Unit) {
+    owner.lifecycleScope.launch {
+        owner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            block(this@launchWithLifecycle)
+        }
+    }
+}
+
+fun Context.getCompatColor(@ColorRes colorRes: Int): Int {
+    return ContextCompat.getColor(this, colorRes)
 }

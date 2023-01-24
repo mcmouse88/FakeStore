@@ -5,19 +5,20 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import coil.load
 import com.mcmouse88.fakestore.R
-import com.mcmouse88.fakestore.databinding.ProductItemBinding
+import com.mcmouse88.fakestore.databinding.ItemProductBinding
+import com.mcmouse88.fakestore.presentation.epoxy.ProductEpoxyController
 import com.mcmouse88.fakestore.presentation.epoxy.ViewBindingKotlinModel
 import com.mcmouse88.fakestore.presentation.models.ProductUI
 import java.text.NumberFormat
 
 data class ProductEpoxyModel(
     val uiProduct: ProductUI?,
-    val listener: Listener
-) : ViewBindingKotlinModel<ProductItemBinding>(R.layout.product_item) {
+    val listener: ProductEpoxyController.Listener
+) : ViewBindingKotlinModel<ItemProductBinding>(R.layout.item_product) {
 
     private val currencyFormatter = NumberFormat.getCurrencyInstance()
 
-    override fun ProductItemBinding.bind() {
+    override fun ItemProductBinding.bind() {
         shimmerLayout.root.isVisible = uiProduct == null
         cardView.isInvisible = uiProduct == null
 
@@ -53,10 +54,5 @@ data class ProductEpoxyModel(
                 }
             }
         } ?: shimmerLayout.root.startShimmer()
-    }
-
-    interface Listener {
-        fun onFavoriteIconClick(productId: Int)
-        fun onProductClick(productId: Int)
     }
 }

@@ -3,6 +3,7 @@ package com.mcmouse88.fakestore.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mcmouse88.fakestore.domain.ProductRepository
+import com.mcmouse88.fakestore.domain.models.Filter
 import com.mcmouse88.fakestore.presentation.redux.ApplicationState
 import com.mcmouse88.fakestore.presentation.redux.Store
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +20,15 @@ class ProductListViewModel @Inject constructor(
     fun fetchProducts() = viewModelScope.launch(Dispatchers.IO) {
         val products = productRepository.fetchAllProduct()
         store.update { state ->
-            return@update state.copy(products = products)
+            return@update state.copy(
+                products = products,
+                filter = ApplicationState.ProductFilterInfo(
+                    filters = products.map {
+                        Filter(value = it.category, displayText = it.category) // todo
+                    }.toSet(),
+                    selectedFilter = null
+                )
+            )
         }
     }
 }

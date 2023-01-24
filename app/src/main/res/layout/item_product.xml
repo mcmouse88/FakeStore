@@ -152,6 +152,6 @@
 
     <include
         android:id="@+id/shimmer_layout"
-        layout="@layout/product_item_shimmer" />
+        layout="@layout/shimmer_item_product" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
