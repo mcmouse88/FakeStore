@@ -2,4 +2,5 @@
     <string name="app_name">FakeStore</string>
     <string name="product_list">Product List</string>
     <string name="profile">Profile</string>
+    <string name="your_card">Your Card</string>
 </resources>

@@ -4,6 +4,12 @@
         android:id="@+id/productListFragment"
         android:icon="@drawable/ic_list"
         android:title="@string/product_list" />
+
+    <item
+        android:id="@+id/cardFragment"
+        android:icon="@drawable/ic_buy"
+        android:title="@string/your_card" />
+
     <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/ic_person"

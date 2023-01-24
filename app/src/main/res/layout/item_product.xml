@@ -97,13 +97,13 @@
                 android:textColor="@color/purple_500"
                 android:textSize="16sp"
                 android:textStyle="normal"
-                app:layout_constraintBottom_toBottomOf="@id/btn_add_to_card"
+                app:layout_constraintBottom_toBottomOf="@id/btn_add_to_cart"
                 app:layout_constraintStart_toStartOf="@id/tv_product_title"
-                app:layout_constraintTop_toTopOf="@id/btn_add_to_card"
+                app:layout_constraintTop_toTopOf="@id/btn_add_to_cart"
                 tools:text="$109.95" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_add_to_card"
+                android:id="@+id/btn_add_to_cart"
                 style="@style/Widget.Material3.Button.Icon"
                 android:layout_width="68dp"
                 android:layout_height="34dp"
@@ -117,7 +117,7 @@
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_indicate_in_card"
+                android:id="@+id/btn_indicate_in_cart"
                 style="@style/Widget.Material3.Button.Icon"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
@@ -128,10 +128,10 @@
                 app:icon="@drawable/ic_check"
                 app:iconGravity="textEnd"
                 app:iconSize="10dp"
-                app:layout_constraintBottom_toBottomOf="@id/btn_add_to_card"
-                app:layout_constraintEnd_toStartOf="@id/btn_add_to_card"
-                app:layout_constraintStart_toStartOf="@id/btn_add_to_card"
-                app:layout_constraintTop_toTopOf="@id/btn_add_to_card" />
+                app:layout_constraintBottom_toBottomOf="@id/btn_add_to_cart"
+                app:layout_constraintEnd_toStartOf="@id/btn_add_to_cart"
+                app:layout_constraintStart_toStartOf="@id/btn_add_to_cart"
+                app:layout_constraintTop_toTopOf="@id/btn_add_to_cart" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

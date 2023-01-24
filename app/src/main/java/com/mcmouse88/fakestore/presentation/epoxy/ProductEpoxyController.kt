@@ -47,5 +47,6 @@ class ProductEpoxyController(
         fun onFavoriteIconClick(productId: Int)
         fun onProductClick(productId: Int)
         fun onFilterSelected(filter: Filter)
+        fun addToCardClick(productId: Int)
     }
 }

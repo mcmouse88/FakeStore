@@ -45,6 +45,11 @@ data class ProductEpoxyModel(
                 listener.onProductClick(uiProduct.product.id)
             }
 
+            btnIndicateInCart.isVisible = uiProduct.isInCart
+            btnAddToCart.setOnClickListener {
+                listener.addToCardClick(uiProduct.product.id)
+            }
+
             progressProductImageLoading.isVisible = true
             ivProduct.load(
                 data = uiProduct.product.image

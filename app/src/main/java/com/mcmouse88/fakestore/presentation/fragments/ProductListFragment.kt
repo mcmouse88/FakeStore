@@ -89,13 +89,28 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list),
         }
     }
 
+    override fun addToCardClick(productId: Int) {
+        viewModel.store.launchWithLifecycle(viewLifecycleOwner) { store ->
+            store.update { currentState ->
+                val currentProductIdsInCart = currentState.inCartProductIds
+                val newProductInCart = if (currentProductIdsInCart.contains(productId)) {
+                    currentProductIdsInCart.filter { it != productId }.toSet()
+                } else {
+                    currentProductIdsInCart + setOf(productId)
+                }
+                return@update currentState.copy(inCartProductIds = newProductInCart)
+            }
+        }
+    }
+
     private fun setupObserver(controller: ProductEpoxyController) {
         combine(
             viewModel.store.stateFlow.map { it.products },
             viewModel.store.stateFlow.map { it.favoriteProductIds },
             viewModel.store.stateFlow.map { it.expandedProductIds },
-            viewModel.store.stateFlow.map { it.filter }
-        ) { listProducts, setFavorites, setExpanded, filterInfo ->
+            viewModel.store.stateFlow.map { it.filter },
+            viewModel.store.stateFlow.map { it.inCartProductIds }
+        ) { listProducts, setFavorites, setExpanded, filterInfo, inCartInfo ->
 
             if (listProducts.isEmpty()) {
                 return@combine ProductListState.Loading
@@ -105,7 +120,8 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list),
                 ProductUI(
                     product = product,
                     isFavorite = setFavorites.contains(product.id),
-                    isExpanded = setExpanded.contains(product.id)
+                    isExpanded = setExpanded.contains(product.id),
+                    isInCart = inCartInfo.contains(product.id)
                 )
             }
 

@@ -3,16 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/productListFragment" >
+    app:startDestination="@id/productListFragment">
 
-    <fragment android:id="@+id/productListFragment"
+    <fragment
+        android:id="@+id/productListFragment"
         android:name="com.mcmouse88.fakestore.presentation.fragments.ProductListFragment"
-        android:label="Product List"
+        android:label="@string/product_list"
         tools:layout="@layout/fragment_product_list" />
 
-    <fragment android:id="@+id/profileFragment"
+    <fragment
+        android:id="@+id/cardFragment"
+        android:name="com.mcmouse88.fakestore.presentation.fragments.CardFragment"
+        android:label="@string/your_card"
+        tools:layout="@layout/fragment_card" />
+
+    <fragment
+        android:id="@+id/profileFragment"
         android:name="com.mcmouse88.fakestore.presentation.fragments.ProfileFragment"
-        android:label="Profile"
+        android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
 
 </navigation>
