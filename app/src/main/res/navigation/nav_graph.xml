@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/cardFragment"
-        android:name="com.mcmouse88.fakestore.presentation.fragments.CardFragment"
+        android:name="com.mcmouse88.fakestore.presentation.fragments.CartFragment"
         android:label="@string/your_card"
-        tools:layout="@layout/fragment_card" />
+        tools:layout="@layout/fragment_cart" />
 
     <fragment
         android:id="@+id/profileFragment"

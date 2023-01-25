@@ -10,7 +10,6 @@ import com.mcmouse88.fakestore.domain.models.Filter
 import com.mcmouse88.fakestore.presentation.ProductListViewModel
 import com.mcmouse88.fakestore.presentation.epoxy.ProductEpoxyController
 import com.mcmouse88.fakestore.presentation.models.FilterUI
-import com.mcmouse88.fakestore.presentation.models.ProductUI
 import com.mcmouse88.fakestore.presentation.redux.ProductListState
 import com.mcmouse88.fakestore.utils.launchWithLifecycle
 import com.mcmouse88.fakestore.utils.observe
@@ -105,26 +104,13 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list),
 
     private fun setupObserver(controller: ProductEpoxyController) {
         combine(
-            viewModel.store.stateFlow.map { it.products },
-            viewModel.store.stateFlow.map { it.favoriteProductIds },
-            viewModel.store.stateFlow.map { it.expandedProductIds },
-            viewModel.store.stateFlow.map { it.filter },
-            viewModel.store.stateFlow.map { it.inCartProductIds }
-        ) { listProducts, setFavorites, setExpanded, filterInfo, inCartInfo ->
+            viewModel.productListReducer.reduce(viewModel.store),
+            viewModel.store.stateFlow.map { it.filter }
+        ) { listProducts, filterInfo ->
 
             if (listProducts.isEmpty()) {
                 return@combine ProductListState.Loading
             }
-
-            val uiProduct = listProducts.map { product ->
-                ProductUI(
-                    product = product,
-                    isFavorite = setFavorites.contains(product.id),
-                    isExpanded = setExpanded.contains(product.id),
-                    isInCart = inCartInfo.contains(product.id)
-                )
-            }
-
             val uiFilter = filterInfo.filters.map { filter ->
                 FilterUI(
                     filter = filter,
@@ -133,9 +119,9 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list),
             }.toSet()
 
             val filteredProduct = if (filterInfo.selectedFilter == null) {
-                uiProduct
+                listProducts
             } else {
-                uiProduct.filter { it.product.category == filterInfo.selectedFilter.value }
+                listProducts.filter { it.product.category == filterInfo.selectedFilter.value }
             }
             return@combine ProductListState.Success(uiFilter, filteredProduct)
         }.distinctUntilChanged().observe(viewLifecycleOwner) { products ->

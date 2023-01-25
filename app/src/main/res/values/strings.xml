@@ -3,4 +3,6 @@
     <string name="product_list">Product List</string>
     <string name="profile">Profile</string>
     <string name="your_card">Your Card</string>
+    <string name="your_cart_is_empty">Your cart is empty</string>
+    <string name="go_to_shopping">Go to Shopping</string>
 </resources>

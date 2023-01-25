@@ -1,7 +1,9 @@
 package com.mcmouse88.fakestore.utils
 
 import android.content.Context
+import android.content.res.Resources
 import androidx.annotation.ColorRes
+import androidx.annotation.Dimension
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
@@ -31,3 +33,9 @@ fun<T> T.launchWithLifecycle(owner: LifecycleOwner, block: suspend (T) -> Unit) 
 fun Context.getCompatColor(@ColorRes colorRes: Int): Int {
     return ContextCompat.getColor(this, colorRes)
 }
+
+@Dimension(unit = Dimension.PX)
+fun Int.toDp(): Int = (this / Resources.getSystem().displayMetrics.density).toInt()
+
+@Dimension(unit = Dimension.PX)
+fun Int.toPx(): Int = (this * Resources.getSystem().displayMetrics.density).toInt()

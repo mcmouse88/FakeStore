@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_product_cart"
+        android:layout_width="0dp"
+        android:layout_height="160dp"
+        android:background="@color/purple_100"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="3:4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerRound"
+        tools:src="@tools:sample/backgrounds/scenic[4]" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/iv_favorite_cart"
+        style="@style/Widget.Material3.Button.Icon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_margin="6dp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        app:iconGravity="textEnd"
+        app:layout_constraintEnd_toEndOf="@id/iv_product_cart"
+        app:layout_constraintTop_toTopOf="@id/iv_product_cart"
+        tools:icon="@drawable/ic_favorite" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_title_cart"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="@color/purple_900"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_product_cart"
+        app:layout_constraintTop_toTopOf="@id/iv_product_cart"
+        tools:text="Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:background="?selectableItemBackgroundBorderless"
+        android:padding="6dp"
+        android:src="@drawable/ic_delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
