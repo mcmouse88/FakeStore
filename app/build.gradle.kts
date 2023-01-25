@@ -3,6 +3,8 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -106,4 +108,9 @@ dependencies {
     val navVersion = "2.5.3"
     implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
     implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
+
+    // Firebase
+    implementation(platform("com.google.firebase:firebase-bom:31.2.0"))
+    implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation("com.google.firebase:firebase-crashlytics-ktx")
 }
