@@ -5,7 +5,7 @@ import com.airbnb.epoxy.TypedEpoxyController
 import com.mcmouse88.fakestore.domain.models.Filter
 import com.mcmouse88.fakestore.presentation.epoxy.models.ProductEpoxyModel
 import com.mcmouse88.fakestore.presentation.epoxy.models.ProductFilterEpoxyModel
-import com.mcmouse88.fakestore.presentation.redux.ProductListState
+import com.mcmouse88.fakestore.presentation.redux.state.ProductListState
 
 class ProductEpoxyController(
     private val listener: Listener

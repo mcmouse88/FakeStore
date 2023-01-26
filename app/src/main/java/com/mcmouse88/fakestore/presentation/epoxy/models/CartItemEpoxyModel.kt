@@ -31,6 +31,13 @@ class CartItemEpoxyModel(
         root.updateLayoutParams<ViewGroup.MarginLayoutParams> {
             setMargins(horizontalMargin, 0, horizontalMargin, 0)
         }
+
+        quantity.apply {
+            tvQuantity.text = 9.toString()
+            ivMinus.setOnClickListener {  }
+            ivPlus.setOnClickListener {  }
+        }
+
     }
 
     interface Listener {

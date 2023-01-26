@@ -1,6 +1,6 @@
 package com.mcmouse88.fakestore.di
 
-import com.mcmouse88.fakestore.presentation.redux.ApplicationState
+import com.mcmouse88.fakestore.presentation.redux.state.ApplicationState
 import com.mcmouse88.fakestore.presentation.redux.Store
 import dagger.Module
 import dagger.Provides

@@ -9,7 +9,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.airbnb.epoxy.Carousel
 import com.mcmouse88.fakestore.R
 import com.mcmouse88.fakestore.databinding.ActivityMainBinding
-import com.mcmouse88.fakestore.presentation.redux.ApplicationState
+import com.mcmouse88.fakestore.presentation.redux.state.ApplicationState
 import com.mcmouse88.fakestore.presentation.redux.Store
 import com.mcmouse88.fakestore.utils.observe
 import dagger.hilt.android.AndroidEntryPoint

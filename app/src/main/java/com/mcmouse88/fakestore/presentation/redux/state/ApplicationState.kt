@@ -1,4 +1,4 @@
-package com.mcmouse88.fakestore.presentation.redux
+package com.mcmouse88.fakestore.presentation.redux.state
 
 import com.mcmouse88.fakestore.domain.models.Filter
 import com.mcmouse88.fakestore.domain.models.Product

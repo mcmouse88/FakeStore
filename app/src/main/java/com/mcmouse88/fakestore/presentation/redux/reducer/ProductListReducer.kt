@@ -1,7 +1,7 @@
 package com.mcmouse88.fakestore.presentation.redux.reducer
 
 import com.mcmouse88.fakestore.presentation.models.ProductUI
-import com.mcmouse88.fakestore.presentation.redux.ApplicationState
+import com.mcmouse88.fakestore.presentation.redux.state.ApplicationState
 import com.mcmouse88.fakestore.presentation.redux.Store
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine

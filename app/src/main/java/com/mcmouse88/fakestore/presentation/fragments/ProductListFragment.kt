@@ -9,14 +9,14 @@ import com.mcmouse88.fakestore.databinding.FragmentProductListBinding
 import com.mcmouse88.fakestore.domain.models.Filter
 import com.mcmouse88.fakestore.presentation.ProductListViewModel
 import com.mcmouse88.fakestore.presentation.epoxy.ProductEpoxyController
-import com.mcmouse88.fakestore.presentation.models.FilterUI
-import com.mcmouse88.fakestore.presentation.redux.ProductListState
+import com.mcmouse88.fakestore.presentation.redux.state.ProductsListFragmentUiStateGenerator
 import com.mcmouse88.fakestore.utils.launchWithLifecycle
 import com.mcmouse88.fakestore.utils.observe
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProductListFragment : Fragment(R.layout.fragment_product_list),
@@ -27,6 +27,9 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list),
         get() = _binding ?: throw NullPointerException("FragmentProductListBinding is null")
 
     private val viewModel by viewModels<ProductListViewModel>()
+
+    @Inject
+    lateinit var uiStateGenerator: ProductsListFragmentUiStateGenerator
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -107,23 +110,7 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list),
             viewModel.productListReducer.reduce(viewModel.store),
             viewModel.store.stateFlow.map { it.filter }
         ) { listProducts, filterInfo ->
-
-            if (listProducts.isEmpty()) {
-                return@combine ProductListState.Loading
-            }
-            val uiFilter = filterInfo.filters.map { filter ->
-                FilterUI(
-                    filter = filter,
-                    isSelected = filterInfo.selectedFilter?.equals(filter) == true
-                )
-            }.toSet()
-
-            val filteredProduct = if (filterInfo.selectedFilter == null) {
-                listProducts
-            } else {
-                listProducts.filter { it.product.category == filterInfo.selectedFilter.value }
-            }
-            return@combine ProductListState.Success(uiFilter, filteredProduct)
+            uiStateGenerator.generate(listProducts, filterInfo)
         }.distinctUntilChanged().observe(viewLifecycleOwner) { products ->
             controller.setData(products)
         }
